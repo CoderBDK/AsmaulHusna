@@ -30,6 +30,11 @@ A modern, multi-screen Jetpack Compose Android app that **displays and explores 
 ## 📱 Screens Included
 
 - **Splash Screen** – App launch/loading screen
+- **Onboarding Screen** – Single screen with multiple steps:
+  - Welcome
+  - Language Selection
+  - Feature Highlights
+  - Final “Get Started”
 - **Home Screen** – Grid/List of all 99 Names
 - **Details Screen** – Arabic, meanings, audio & tafsir
 - **AudioPlayback Screen** - Audio Player for playback
