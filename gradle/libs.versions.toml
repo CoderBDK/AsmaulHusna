@@ -17,6 +17,7 @@ daggerHilt = "2.57.2"
 ksp = "2.3.3"
 roomVersion = "2.8.4"
 kotlinxSerializationJson = "1.9.0"
+ktor = "3.3.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,6 +45,10 @@ androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "
 android-daggerhilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "daggerHilt" }
 android-hiltcompiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "daggerHilt" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
