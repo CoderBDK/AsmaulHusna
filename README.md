@@ -75,6 +75,7 @@ A modern, multi-screen Jetpack Compose Android app that **displays and explores 
 - **ViewModel + StateFlow** – State management
 - **Datastore** – Persistent key-value storage
 - **Room Database** – Local database for storing app data
+- **Ktor Client** – Network requests & remote data fetching
 - **MediaPlayer** – Audio playback
 - **Dagger & Hilt** – Dependency Injection
 
