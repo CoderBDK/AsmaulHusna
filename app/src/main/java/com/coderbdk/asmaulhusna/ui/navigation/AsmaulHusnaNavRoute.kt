@@ -8,14 +8,20 @@ sealed class AsmaulHusnaNavRoute {
     data object Splash : AsmaulHusnaNavRoute()
 
     @Serializable
+    object Onboarding : AsmaulHusnaNavRoute()
+
+    @Serializable
     data object Home : AsmaulHusnaNavRoute()
 
     @Serializable
-    data object Details : AsmaulHusnaNavRoute()
+    data class Details(val number: Int) : AsmaulHusnaNavRoute()
 
     @Serializable
     data object Favorite : AsmaulHusnaNavRoute()
 
     @Serializable
     data object Settings : AsmaulHusnaNavRoute()
+
+    @Serializable
+    data class Update(val data: String? = null) : AsmaulHusnaNavRoute()
 }
