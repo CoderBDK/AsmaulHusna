@@ -89,6 +89,7 @@ A modern, multi-screen Jetpack Compose Android app that **displays and explores 
 ┃ ┃ ┗ 📂 prefs
 ┃ ┣ 📂 model
 ┃ ┣ 📂 remote
+┃ ┣ 📂 util
 ┃ ┗ 📂 repository
 ┣ 📂 domain
 ┃ ┣ 📂 usecase
