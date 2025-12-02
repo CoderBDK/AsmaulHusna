@@ -7,6 +7,7 @@ import com.coderbdk.asmaulhusna.data.repository.SettingsRepository
 import com.coderbdk.asmaulhusna.domain.usecase.GetLanguageListUseCase
 import com.coderbdk.asmaulhusna.domain.usecase.InitializeAsmaulHusnaDataUseCase
 import com.coderbdk.asmaulhusna.domain.usecase.SetAppLanguageUseCase
+import com.coderbdk.asmaulhusna.domain.usecase.SetFirstTimeUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,7 +46,7 @@ class OnboardingViewModel @Inject constructor(
     private val setAppLanguageUseCase: SetAppLanguageUseCase,
     private val initializeAsmaulHusnaDataUseCase: InitializeAsmaulHusnaDataUseCase,
     private val getLanguageListUseCase: GetLanguageListUseCase,
-    private val settingsRepository: SettingsRepository
+    private val setFirstTimeUserUseCase: SetFirstTimeUserUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(OnboardingUiState())
@@ -108,7 +109,7 @@ class OnboardingViewModel @Inject constructor(
                 return@launch
             }
 
-            settingsRepository.setFirstTimeUser(false)
+            setFirstTimeUserUseCase(false)
 
             _sideEffect.send(OnboardingSideEffect.NavigateToHome)
         }
