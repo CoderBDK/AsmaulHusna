@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Asmaul Husna</string>
+    <string name="allah">ﷲ</string>
+
+    <!-- Onboarding!-->
+    <string name="onboarding_app_highlights">App Highlights</string>
+    <string name="onboarding_app_fh1_title">99 Names of Allah</string>
+    <string name="onboarding_app_fh1_summary">Explore the 99 Beautiful names of Allah</string>
+    <string name="onboarding_app_fh2_title">Audio Pronunciation</string>
+    <string name="onboarding_app_fh2_summary">Listen to the correct pronunciation of each name</string>
+    <string name="onboarding_app_fh3_title">Detailed Explanations</string>
+    <string name="onboarding_app_fh3_summary">Read the depth explanations of each name</string>
+    <string name="onboarding_app_final_ready_title">You are all set!</string>
+    <string name="onboarding_app_final_ready_subtitle">All initial setup is complete. Get ready to start learning the names of Allah.</string>
+    <string name="onboarding_app_final_button_loading">Please wait…</string>
+    <string name="onboarding_app_final_button_start">Start Application</string>
+
 </resources>
