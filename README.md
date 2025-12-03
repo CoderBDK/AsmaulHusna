@@ -43,9 +43,9 @@ A modern, multi-screen Jetpack Compose Android app that **displays and explores 
 
 ## ✅ Feature Checklist
 
-- [ ] Display all 99 Names with Arabic
-  - [ ] Meaning
-  - [ ] Transliteration
+- [x] Display all 99 Names with Arabic
+  - [x] Meaning
+  - [x] Transliteration
   - [ ] Pronunciation Audio
   - [ ] Detailed Explanation Page
 - [ ] Favorites functionality
@@ -53,7 +53,7 @@ A modern, multi-screen Jetpack Compose Android app that **displays and explores 
 - [ ] Multi-Screen Navigation
 - [ ] Dark/Light Theme
 - [ ] Audio Playback for each name
-- [ ] Search Feature
+- [x] Search Feature
 - [ ] Settings (Theme, Language, About, etc)
 
 ## 🌐 Language Support
