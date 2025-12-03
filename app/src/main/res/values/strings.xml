@@ -14,5 +14,6 @@
     <string name="onboarding_app_final_ready_subtitle">All initial setup is complete. Get ready to start learning the names of Allah.</string>
     <string name="onboarding_app_final_button_loading">Please wait…</string>
     <string name="onboarding_app_final_button_start">Start Application</string>
+    <string name="home_search_placeholder">Search...</string>
 
 </resources>
