@@ -33,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.coderbdk.asmaulhusna.R
+import com.coderbdk.asmaulhusna.ui.components.AnimatedNonagon
 import com.coderbdk.asmaulhusna.ui.theme.AsmaulHusnaTheme
 import kotlin.math.cos
 import kotlin.math.sin
@@ -83,7 +84,6 @@ fun SplashScreen(uiState: SplashUiState) {
     }
 }
 
-
 @Composable
 fun NonagonLoading(
     modifier: Modifier = Modifier,
@@ -106,114 +106,6 @@ fun NonagonLoading(
 
 }
 
-@Composable
-fun AnimatedNonagon(
-    modifier: Modifier = Modifier,
-    strokeWidth: Float = 6f,
-    trailLength: Int = 49
-) {
-    val infiniteTransition = rememberInfiniteTransition()
-
-    val phase by infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = 1f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(5000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
-        )
-    )
-
-    val trail = remember { mutableStateListOf<Offset>() }
-
-    val indicatorColor = colorScheme.primary
-    val trackColor = colorScheme.secondaryContainer
-    val borderColor = colorScheme.outlineVariant
-
-    Canvas(modifier = modifier) {
-
-        val radius = size.minDimension / 2.5f
-        val center = Offset(size.width / 2, size.height / 2)
-
-        val points = (0 until 9).map { i ->
-            val angle = Math.toRadians((i * (360.0 / 9)) - 90)
-            Offset(
-                x = center.x + (radius * cos(angle)).toFloat(),
-                y = center.y + (radius * sin(angle)).toFloat()
-            )
-        }
-
-        // Draw Nonagon Border
-        for (i in points.indices) {
-            val next = (i + 1) % points.size
-            drawLine(
-                color = borderColor,
-                start = points[i],
-                end = points[next],
-                strokeWidth = strokeWidth + 2,
-            )
-            drawLine(
-                color = trackColor,
-                start = points[i],
-                end = points[next],
-                strokeWidth = strokeWidth,
-                cap = StrokeCap.Round,
-            )
-        }
-
-
-        // Calculate Animated Moving Point
-        val totalEdges = points.size
-        val position = phase * totalEdges
-        val edgeIndex = position.toInt()
-        val t = position - edgeIndex
-
-        val start = points[edgeIndex % totalEdges]
-        val end = points[(edgeIndex + 1) % totalEdges]
-
-        val head = Offset(
-            x = lerp(start.x, end.x, t),
-            y = lerp(start.y, end.y, t)
-        )
-
-        // Add new head point to trail
-        trail.add(0, head)
-        if (trail.size > trailLength) trail.removeAt(trail.lastIndex)
-
-        // TRAIL (fade effect)
-        trail.forEachIndexed { i, p ->
-            val alpha = (1f - (i / trailLength.toFloat()))
-            if (i < trail.size - 1) {
-                drawLine(
-                    color = indicatorColor.copy(alpha),
-                    start = p,
-                    end = trail[i + 1],
-                    strokeWidth = strokeWidth,
-                    cap = StrokeCap.Round
-                )
-            }
-        }
-        for (i in points.indices) {
-            drawCircle(
-                color = borderColor,
-                center = points[i],
-                radius = strokeWidth + 2f,
-                style = Stroke(width = strokeWidth)
-            )
-            drawCircle(
-                color = indicatorColor,
-                center = points[i],
-                radius = strokeWidth
-            )
-        }
-
-
-    }
-}
-
-
-private fun lerp(a: Float, b: Float, t: Float): Float {
-    return a + (b - a) * t
-}
 
 @Preview(showBackground = true)
 @Composable

@@ -87,7 +87,6 @@ class SplashViewModel @Inject constructor(
             }
 
             UpdateCheckResult.NoUpdateNeeded -> {
-                delay(2000)
                 _sideEffect.send(SplashSideEffect.NavigateToHome)
             }
         }
