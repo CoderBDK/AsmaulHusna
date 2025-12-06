@@ -15,8 +15,24 @@
     <string name="onboarding_app_final_button_loading">Please wait…</string>
     <string name="onboarding_app_final_button_start">Start Application</string>
 
+    <string name="back">Back</string>
     <string name="home_search_placeholder">Search…</string>
 
     <string name="details_description_heading">Description</string>
+
+    <string name="settings_selected">Selected</string>
+    <string name="settings_title">Settings</string>
+    <string name="settings_dark_mode_title">Dark Mode</string>
+    <string name="settings_dark_mode_summary_on">Enabled</string>
+    <string name="settings_dark_mode_summary_off">Disabled</string>
+    <string name="settings_language_title">Language</string>
+    <string name="settings_language_loading">Loading…</string>
+
+    <string name="update_status_downloading">Downloading latest data…</string>
+    <string name="update_status_checking">Checking for updates…</string>
+    <string name="update_available_message">New data available! Update now to see the latest translations and names.</string>
+    <string name="update_button_text">Update Now</string>
+    <string name="update_skip_button_text">Skip for now</string>
+    <string name="update_mandatory_required">Data update is required to continue.</string>
 
 </resources>

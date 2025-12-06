@@ -9,7 +9,5 @@ import androidx.navigation.compose.rememberNavController
 @Composable
 fun AsmaulHusnaApp(modifier: Modifier = Modifier) {
     val controller = rememberNavController()
-    Scaffold { paddingValues ->
-        AsmaulHusnaNavGraph(controller = controller, modifier = Modifier.padding(paddingValues))
-    }
+    AsmaulHusnaNavGraph(controller = controller, modifier = Modifier)
 }
