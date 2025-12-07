@@ -35,4 +35,5 @@
     <string name="update_skip_button_text">Skip for now</string>
     <string name="update_mandatory_required">Data update is required to continue.</string>
 
+    <string name="favorite_title">Favorite</string>
 </resources>

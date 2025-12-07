@@ -40,30 +40,6 @@ import com.coderbdk.asmaulhusna.ui.components.BackNavigationButton
 import com.coderbdk.asmaulhusna.ui.theme.AsmaulHusnaTheme
 
 
-@Composable
-fun SettingsListItem(
-    headline: String,
-    summary: String,
-    leadingIcon: ImageVector,
-    onClick: () -> Unit,
-    trailingContent: @Composable () -> Unit
-) {
-    ListItem(
-        headlineContent = { Text(text = headline) },
-        supportingContent = { Text(text = summary, style = MaterialTheme.typography.bodyMedium) },
-        leadingContent = {
-            Icon(
-                imageVector = leadingIcon,
-                contentDescription = null
-            )
-        },
-        trailingContent = trailingContent,
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick),
-        colors = ListItemDefaults.colors(containerColor = MaterialTheme.colorScheme.surface)
-    )
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -132,6 +108,31 @@ fun SettingsScreen(
             HorizontalDivider()
         }
     }
+}
+
+@Composable
+fun SettingsListItem(
+    headline: String,
+    summary: String,
+    leadingIcon: ImageVector,
+    onClick: () -> Unit,
+    trailingContent: @Composable () -> Unit
+) {
+    ListItem(
+        headlineContent = { Text(text = headline) },
+        supportingContent = { Text(text = summary, style = MaterialTheme.typography.bodyMedium) },
+        leadingContent = {
+            Icon(
+                imageVector = leadingIcon,
+                contentDescription = null
+            )
+        },
+        trailingContent = trailingContent,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
+        colors = ListItemDefaults.colors(containerColor = MaterialTheme.colorScheme.surface)
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -1,9 +1,9 @@
-package com.coderbdk.asmaulhusna.ui.home
+package com.coderbdk.asmaulhusna.ui.favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.coderbdk.asmaulhusna.data.local.db.entity.AsmaulHusnaFull
-import com.coderbdk.asmaulhusna.domain.usecase.GetAsmaulHusnaListUseCase
+import com.coderbdk.asmaulhusna.data.local.db.entity.AsmaulHusnaEntity
+import com.coderbdk.asmaulhusna.domain.usecase.GetFavoriteAsmaulHusnaUseCase
 import com.coderbdk.asmaulhusna.domain.usecase.ObserveSettingsUseCase
 import com.coderbdk.asmaulhusna.domain.usecase.SetFavoriteStatusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,41 +19,37 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-data class HomeUiState(
+data class FavoriteUiState(
     val isLoading: Boolean = false,
-    val asmaulHusnaList: List<AsmaulHusnaFull> = emptyList(),
+    val asmaulHusnaList: List<AsmaulHusnaEntity> = emptyList(),
     val error: String? = null,
     val query: String = ""
 )
 
-sealed interface HomeUiEvent {
-    data class SetFavoriteStatus(val number: Int, val isFavorite: Boolean) : HomeUiEvent
-    object RefreshData : HomeUiEvent
-    data class NavigateToDetails(val number: Int) : HomeUiEvent
-    data object NavigateToSettings : HomeUiEvent
-    data object NavigateToFavorite: HomeUiEvent
-    data class QueryChange(val query: String) : HomeUiEvent
+sealed interface FavoriteUiEvent {
+    data class SetFavoriteStatus(val number: Int, val isFavorite: Boolean) : FavoriteUiEvent
+    object RefreshData : FavoriteUiEvent
+    data class NavigateToDetails(val number: Int) : FavoriteUiEvent
+    data object NavigateBack: FavoriteUiEvent
+    data class QueryChange(val query: String) : FavoriteUiEvent
 }
 
-sealed interface HomeSideEffect {
-    data class ShowToast(val message: String) : HomeSideEffect
-    data class NavigateToDetails(val number: Int) : HomeSideEffect
-    data object NavigateToSettings : HomeSideEffect
-    data object NavigateToFavorite: HomeSideEffect
+sealed interface FavoriteSideEffect {
+    data class ShowToast(val message: String) : FavoriteSideEffect
+    data class NavigateToDetails(val number: Int) : FavoriteSideEffect
+    data object NavigateUp: FavoriteSideEffect
 }
-
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
-    getAsmaulHusnaListUseCase: GetAsmaulHusnaListUseCase,
+class FavoriteViewModel @Inject constructor(
+    getAsmaulHusnaListUseCase: GetFavoriteAsmaulHusnaUseCase,
     observeSettingsUseCase: ObserveSettingsUseCase,
     private val setFavoriteStatusUseCase: SetFavoriteStatusUseCase
 ) : ViewModel() {
-
     private val _queryState = MutableStateFlow("")
 
 
-    val uiState: StateFlow<HomeUiState> = observeSettingsUseCase()
+    val uiState: StateFlow<FavoriteUiState> = observeSettingsUseCase()
         .combine(getAsmaulHusnaListUseCase()) { settings, allAsmas ->
             Pair(settings, allAsmas)
         }
@@ -63,22 +59,22 @@ class HomeViewModel @Inject constructor(
             } else {
                 allAsmas.filter { asma ->
                     asma.arabicName.contains(currentQuery, ignoreCase = true) ||
-                            asma.number.toString().contains(currentQuery) ||
-                            asma.meaning.contains(currentQuery, ignoreCase = true)
+                            asma.number.toString().contains(currentQuery)
+
                 }
             }
-            HomeUiState(
+            FavoriteUiState(
                 isLoading = false,
                 asmaulHusnaList = filteredList,
                 query = currentQuery
             )
         }
         .onStart {
-            emit(HomeUiState(isLoading = true))
+            emit(FavoriteUiState(isLoading = true))
         }
         .catch { e ->
             emit(
-                HomeUiState(
+                FavoriteUiState(
                     isLoading = false,
                     error = e.localizedMessage ?: "Unknown error occurred."
                 )
@@ -87,29 +83,27 @@ class HomeViewModel @Inject constructor(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = HomeUiState(isLoading = true)
+            initialValue = FavoriteUiState(isLoading = true)
         )
 
-    private val _sideEffect = Channel<HomeSideEffect>()
+    private val _sideEffect = Channel<FavoriteSideEffect>()
     val sideEffect = _sideEffect.receiveAsFlow()
 
-    fun handleEvent(event: HomeUiEvent) {
+    fun handleEvent(event: FavoriteUiEvent) {
         when (event) {
-            is HomeUiEvent.SetFavoriteStatus -> setFavoriteStatus(event.number, event.isFavorite)
-            HomeUiEvent.RefreshData -> {
+            is FavoriteUiEvent.SetFavoriteStatus -> setFavoriteStatus(
+                event.number,
+                event.isFavorite
+            )
+
+            FavoriteUiEvent.RefreshData -> {
             }
 
-            is HomeUiEvent.NavigateToDetails -> {
-                sendSideEffect(HomeSideEffect.NavigateToDetails(event.number))
+            FavoriteUiEvent.NavigateBack -> sendSideEffect(FavoriteSideEffect.NavigateUp)
+            is FavoriteUiEvent.NavigateToDetails -> {
+                sendSideEffect(FavoriteSideEffect.NavigateToDetails(event.number))
             }
-
-            is HomeUiEvent.NavigateToSettings -> {
-                sendSideEffect(HomeSideEffect.NavigateToSettings)
-            }
-            is HomeUiEvent.NavigateToFavorite -> {
-                sendSideEffect(HomeSideEffect.NavigateToFavorite)
-            }
-            is HomeUiEvent.QueryChange -> {
+            is FavoriteUiEvent.QueryChange -> {
                 _queryState.value = event.query
             }
         }
@@ -120,14 +114,14 @@ class HomeViewModel @Inject constructor(
             try {
                 setFavoriteStatusUseCase(number, isFavorite)
                 val message = if (isFavorite) "Favorite added." else "Favorite removed."
-                sendSideEffect(HomeSideEffect.ShowToast(message))
+                sendSideEffect(FavoriteSideEffect.ShowToast(message))
             } catch (e: Exception) {
-                sendSideEffect(HomeSideEffect.ShowToast("Failed to update favorite status."))
+                sendSideEffect(FavoriteSideEffect.ShowToast("Failed to update favorite status."))
             }
         }
     }
 
-    private fun sendSideEffect(effect: HomeSideEffect) {
+    private fun sendSideEffect(effect: FavoriteSideEffect) {
         viewModelScope.launch {
             _sideEffect.send(effect)
         }

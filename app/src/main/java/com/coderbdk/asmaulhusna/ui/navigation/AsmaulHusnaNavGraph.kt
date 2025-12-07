@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.coderbdk.asmaulhusna.ui.details.DetailsRoute
+import com.coderbdk.asmaulhusna.ui.favorite.FavoriteRoute
 import com.coderbdk.asmaulhusna.ui.home.HomeRoute
 import com.coderbdk.asmaulhusna.ui.onboarding.OnboardingRoute
 import com.coderbdk.asmaulhusna.ui.onboarding.OnboardingScreen
@@ -35,6 +36,7 @@ fun AsmaulHusnaNavGraph(controller: NavHostController, modifier: Modifier = Modi
 
         composable<AsmaulHusnaNavRoute.Home> {
             HomeRoute(
+                onNavigateToFavorite = navActions::navigateToFavorite,
                 onNavigateToDetails = navActions::navigateToDetails,
                 onNavigateToSettings = navActions::navigateToSettings
             )
@@ -43,7 +45,7 @@ fun AsmaulHusnaNavGraph(controller: NavHostController, modifier: Modifier = Modi
             DetailsRoute(onNavigateUp = navActions::navigateUp)
         }
         composable<AsmaulHusnaNavRoute.Favorite> {
-
+            FavoriteRoute(onNavigateUp = navActions::navigateUp, onNavigateToDetails = navActions::navigateToDetails)
         }
         composable<AsmaulHusnaNavRoute.Settings> {
             SettingsRoute(onNavigateUp = navActions::navigateUp)

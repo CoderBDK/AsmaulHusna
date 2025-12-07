@@ -1,4 +1,4 @@
-package com.coderbdk.asmaulhusna.ui.home
+package com.coderbdk.asmaulhusna.ui.favorite
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -6,30 +6,25 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
-
 @Composable
-fun HomeRoute(
-    onNavigateToFavorite: () -> Unit,
-    onNavigateToDetails: (Int) -> Unit,
-    onNavigateToSettings: () -> Unit,
-) {
-    val viewModel = hiltViewModel<HomeViewModel>()
+fun FavoriteRoute(onNavigateUp: () -> Unit, onNavigateToDetails: (Int) -> Unit) {
+    val viewModel = hiltViewModel<FavoriteViewModel>()
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                is HomeSideEffect.ShowToast -> {
+                is FavoriteSideEffect.ShowToast -> {
 
                 }
-                HomeSideEffect.NavigateToFavorite -> onNavigateToFavorite()
-                is HomeSideEffect.NavigateToDetails -> onNavigateToDetails(effect.number)
-                HomeSideEffect.NavigateToSettings -> onNavigateToSettings()
+
+                is FavoriteSideEffect.NavigateUp -> onNavigateUp()
+                is FavoriteSideEffect.NavigateToDetails -> onNavigateToDetails(effect.number)
             }
         }
     }
 
-    HomeScreen(
+    FavoriteScreen(
         uiState = state,
         onEvent = viewModel::handleEvent,
     )

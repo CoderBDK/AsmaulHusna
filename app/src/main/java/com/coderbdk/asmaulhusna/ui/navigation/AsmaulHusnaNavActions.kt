@@ -25,9 +25,15 @@ class AsmaulHusnaNavActions(private val controller: NavController) {
             popUpTo(routeToPopUpFrom) { inclusive = true }
         }
     }
+
+    fun navigateToFavorite() {
+        controller.navigate(AsmaulHusnaNavRoute.Favorite)
+    }
+
     fun navigateToDetails(number: Int) {
         controller.navigate(AsmaulHusnaNavRoute.Details(number))
     }
+
     fun navigateToSettings() {
         controller.navigate(AsmaulHusnaNavRoute.Settings)
     }
