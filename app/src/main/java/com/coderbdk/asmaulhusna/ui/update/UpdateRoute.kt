@@ -12,8 +12,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.coderbdk.asmaulhusna.R
 import com.coderbdk.asmaulhusna.ui.navigation.AsmaulHusnaNavRoute
 
 @Composable
@@ -57,11 +59,11 @@ fun UpdateRoute(
     errorDialogMessage?.let { message ->
         AlertDialog(
             onDismissRequest = { errorDialogMessage = null },
-            title = { Text("Error") },
+            title = { Text(stringResource(R.string.dialog_error_title)) },
             text = { Text(message) },
             confirmButton = {
                 Button(onClick = { errorDialogMessage = null }) {
-                    Text("OK")
+                    Text(stringResource(R.string.dialog_error_ok_button))
                 }
             }
         )
@@ -79,16 +81,16 @@ fun UpdateRoute(
 fun AppUpdateConfirmationDialog(remoteVersion: Int, onConfirmUpdate: () -> Unit, onDismiss: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("App Update Available (v$remoteVersion)") },
-        text = { Text("A newer version of the app is available. Please update to continue.") },
+        title = { Text(stringResource(R.string.dialog_update_title, remoteVersion)) },
+        text = { Text(stringResource(R.string.dialog_update_message)) },
         confirmButton = {
             Button(onClick = onConfirmUpdate) {
-                Text("Update")
+                Text(stringResource(R.string.dialog_update_confirm_button))
             }
         },
         dismissButton = {
             OutlinedButton(onClick = onDismiss) {
-                Text("Later")
+                Text(stringResource(R.string.dialog_update_dismiss_button))
             }
         }
     )

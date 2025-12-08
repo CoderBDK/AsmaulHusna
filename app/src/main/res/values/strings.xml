@@ -34,6 +34,15 @@
     <string name="update_button_text">Update Now</string>
     <string name="update_skip_button_text">Skip for now</string>
     <string name="update_mandatory_required">Data update is required to continue.</string>
+    <string name="update_screen_skip_button_text">Skip for now</string>
+
+    <string name="dialog_error_title">Error</string>
+    <string name="dialog_error_ok_button">OK</string>
+    <string name="dialog_update_title">App Update Available (v%s)</string>
+    <string name="dialog_update_message">A newer version of the app is available. Please update to continue.</string>
+    <string name="dialog_update_confirm_button">Update</string>
+    <string name="dialog_update_dismiss_button">Later</string>
+
 
     <string name="favorite_title">Favorite</string>
 </resources>
