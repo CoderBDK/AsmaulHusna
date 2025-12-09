@@ -48,13 +48,13 @@ A modern, multi-screen Jetpack Compose Android app that **displays and explores 
   - [x] Transliteration
   - [ ] Pronunciation Audio
   - [ ] Detailed Explanation Page
-- [ ] Favorites functionality
-- [ ] Modern UI with Jetpack Compose
-- [ ] Multi-Screen Navigation
-- [ ] Dark/Light Theme
+- [x] Favorites functionality
+- [x] Modern UI with Jetpack Compose
+- [x] Multi-Screen Navigation
+- [x] Dark/Light Theme
 - [ ] Audio Playback for each name
 - [x] Search Feature
-- [ ] Settings (Theme, Language, About, etc)
+- [x] Settings (Theme, Language, About, etc)
 
 ## 🌐 Language Support
 
