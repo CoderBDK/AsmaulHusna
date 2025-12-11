@@ -69,6 +69,7 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.media3.exoplayer)
     annotationProcessor(libs.androidx.room.compiler)
     implementation(libs.android.daggerhilt)
     ksp(libs.android.hiltcompiler)
