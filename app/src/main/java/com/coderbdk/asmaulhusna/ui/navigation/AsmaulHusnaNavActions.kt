@@ -34,6 +34,9 @@ class AsmaulHusnaNavActions(private val controller: NavController) {
         controller.navigate(AsmaulHusnaNavRoute.Details(number))
     }
 
+    fun navigateAudioPlayback(number: Int) {
+        controller.navigate(AsmaulHusnaNavRoute.AudioPlayback(number))
+    }
     fun navigateToSettings() {
         controller.navigate(AsmaulHusnaNavRoute.Settings)
     }

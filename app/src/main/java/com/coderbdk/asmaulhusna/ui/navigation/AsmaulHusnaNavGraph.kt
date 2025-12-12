@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.coderbdk.asmaulhusna.ui.audio.AudioPlaybackRoute
 import com.coderbdk.asmaulhusna.ui.details.DetailsRoute
 import com.coderbdk.asmaulhusna.ui.favorite.FavoriteRoute
 import com.coderbdk.asmaulhusna.ui.home.HomeRoute
@@ -42,7 +43,10 @@ fun AsmaulHusnaNavGraph(controller: NavHostController, modifier: Modifier = Modi
             )
         }
         composable<AsmaulHusnaNavRoute.Details> {
-            DetailsRoute(onNavigateUp = navActions::navigateUp)
+            DetailsRoute(onNavigateUp = navActions::navigateUp, onNavigateAudioPlayback = navActions::navigateAudioPlayback)
+        }
+        composable<AsmaulHusnaNavRoute.AudioPlayback> {
+            AudioPlaybackRoute(onNavigateUp = navActions::navigateUp)
         }
         composable<AsmaulHusnaNavRoute.Favorite> {
             FavoriteRoute(onNavigateUp = navActions::navigateUp, onNavigateToDetails = navActions::navigateToDetails)

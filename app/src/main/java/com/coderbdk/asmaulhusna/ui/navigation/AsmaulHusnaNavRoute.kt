@@ -17,6 +17,9 @@ sealed class AsmaulHusnaNavRoute {
     data class Details(val number: Int) : AsmaulHusnaNavRoute()
 
     @Serializable
+    data class AudioPlayback(val number: Int) : AsmaulHusnaNavRoute()
+
+    @Serializable
     data object Favorite : AsmaulHusnaNavRoute()
 
     @Serializable
