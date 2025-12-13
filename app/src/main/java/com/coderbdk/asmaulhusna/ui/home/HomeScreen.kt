@@ -173,13 +173,15 @@ fun HomeScreen(
                 LazyColumn {
                     items(uiState.asmaulHusnaList) { item ->
                         AsmaulHusnaItem(
+                            uiState = uiState,
                             data = item,
                             onFavoriteToggled = { isFav ->
                                 onEvent(HomeUiEvent.SetFavoriteStatus(item.number, isFav))
                             },
                             onItemClick = {
                                 onEvent(HomeUiEvent.NavigateToDetails(it))
-                            }
+                            },
+                            onEvent = onEvent
                         )
                     }
                 }
@@ -192,9 +194,11 @@ fun HomeScreen(
 
 @Composable
 fun AsmaulHusnaItem(
+    uiState: HomeUiState,
     data: AsmaulHusnaFull,
     onFavoriteToggled: (Boolean) -> Unit,
-    onItemClick: (Int) -> Unit
+    onItemClick: (Int) -> Unit,
+    onEvent: (HomeUiEvent) -> Unit
 ) {
     val favoriteTint by animateColorAsState(
         targetValue = if (data.isFavorite) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary,
@@ -205,7 +209,12 @@ fun AsmaulHusnaItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
-            .clickable { onItemClick(data.number) },
+            .clickable {
+                if (uiState.playerState?.isPlaying == true) {
+                    onEvent(HomeUiEvent.PlayPause)
+                }
+                onItemClick(data.number)
+            },
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
@@ -264,14 +273,16 @@ fun AsmaulHusnaItem(
                 )
             }
             Column {
+                val isCurrentItem = uiState.playerState?.asmaulHusna?.number == data.number
+
                 IconButton(
                     onClick = {
-                        // onAudioPlay(data.audioFile)
+                        onEvent(HomeUiEvent.ToggleAudio(data))
                     },
                     modifier = Modifier.size(48.dp)
                 ) {
                     Icon(
-                        painter = painterResource(R.drawable.outline_play_circle_24),
+                        painter = painterResource(if (isCurrentItem && uiState.playerState.isPlaying) R.drawable.baseline_pause_24 else R.drawable.baseline_play_arrow_24),
                         contentDescription = "Play Audio",
                         tint = MaterialTheme.colorScheme.primary
                     )
