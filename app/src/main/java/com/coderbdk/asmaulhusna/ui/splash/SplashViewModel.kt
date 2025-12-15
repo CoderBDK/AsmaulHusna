@@ -87,7 +87,10 @@ class SplashViewModel @Inject constructor(
             }
 
             UpdateCheckResult.NoUpdateNeeded -> {
-                _sideEffect.send(SplashSideEffect.NavigateToHome)
+                viewModelScope.launch {
+                    delay(1000)
+                    _sideEffect.send(SplashSideEffect.NavigateToHome)
+                }
             }
         }
     }
