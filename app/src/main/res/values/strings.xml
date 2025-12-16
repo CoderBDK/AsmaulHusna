@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Asmaul Husna</string>
     <string name="allah">ﷲ</string>
+    <string name="asmaul_husna">الأسماء\n الحسنى</string>
 
     <!-- Onboarding!-->
     <string name="onboarding_app_highlights">App Highlights</string>

@@ -4,7 +4,10 @@ import android.content.Context
 import android.util.Log
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.datasource.DataSource
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import com.coderbdk.asmaulhusna.BuildConfig
 import com.coderbdk.asmaulhusna.data.local.db.entity.AsmaulHusnaFull
 import com.coderbdk.asmaulhusna.ui.audio.AudioPlaybackState
@@ -15,12 +18,18 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 
+@UnstableApi
 @Singleton
 class MediaAudioPlayer @Inject constructor(
     @ApplicationContext context: Context,
+    dataSourceFactory: DataSource.Factory
 ) : AudioPlayerManager, Player.Listener {
 
-    private val player: ExoPlayer = ExoPlayer.Builder(context).build()
+    private val player: ExoPlayer = ExoPlayer.Builder(context)
+        .setMediaSourceFactory(
+            DefaultMediaSourceFactory(dataSourceFactory)
+        ).build()
+
     private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
     private var positionUpdateJob: Job? = null
     private var playlist = emptyList<AsmaulHusnaFull>()
